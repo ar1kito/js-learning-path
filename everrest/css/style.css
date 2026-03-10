@@ -20,6 +20,9 @@
   --text-bright: #e8eaf0;
   --border: rgba(232, 107, 42, 0.15);
 }
+.hide {
+  display: none;
+}
 html {
   scroll-behavior: smooth;
 }
@@ -299,6 +302,78 @@ h1 .soul {
 .btn-ghost:hover {
   background: rgba(79, 195, 247, 0.08);
   border-color: var(--soul);
+}
+/* QUOTE BLOCK */
+#quote {
+  font-family: "Cinzel", serif;
+  font-size: clamp(1.6rem, 3vw, 2.8rem);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.3;
+  color: var(--text-bright);
+  margin-bottom: 1rem;
+  position: relative;
+  padding-left: 1.2rem;
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
+
+/* left accent line on quote */
+#quote::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, var(--ember), var(--rune));
+  border-radius: 2px;
+}
+
+/* AUTHOR */
+#author {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--soul2);
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: opacity 0.4s ease;
+}
+
+#author::before {
+  content: "—";
+  color: var(--ember);
+}
+
+/* TYPE / CATEGORY */
+#type {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity 0.4s ease;
+}
+
+#type::before {
+  content: "//";
+  color: var(--rune);
+  opacity: 0.6;
+}
+
+/* fade animation class — add/remove this via JS on quote change */
+.quote-fade {
+  opacity: 0;
+  transform: translateY(8px);
 }
 
 /* SIGIL */
@@ -671,5 +746,291 @@ footer::before {
   }
   .wordmark {
     display: none;
+  }
+}
+.filter-bar {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--abyss);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  position: relative;
+}
+.filter-bar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--ember), var(--soul), transparent);
+  opacity: 0.4;
+}
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.filter-field label {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.54rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.filter-field label::before {
+  content: "//";
+  color: var(--soul);
+  opacity: 0.5;
+  font-size: 0.5rem;
+}
+.filter-input {
+  background: rgba(7, 8, 15, 0.8);
+  border: 1px solid rgba(79, 195, 247, 0.15);
+  border-radius: 2px;
+  padding: 9px 12px;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 0.95rem;
+  color: var(--text-bright);
+  outline: none;
+  width: 100%;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+.filter-input::placeholder {
+  color: rgba(107, 114, 128, 0.4);
+  font-size: 0.85rem;
+}
+.filter-input:focus {
+  border-color: var(--soul);
+  box-shadow: 0 0 0 2px rgba(79, 195, 247, 0.08);
+}
+.filter-action {
+  display: flex;
+  align-items: flex-end;
+}
+.btn-filter {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--void);
+  background: linear-gradient(135deg, var(--soul), var(--soul2));
+  border: none;
+  padding: 0 22px;
+  border-radius: 2px;
+  cursor: pointer;
+  height: 38px;
+  white-space: nowrap;
+  transition: all 0.25s;
+  box-shadow: 0 4px 16px rgba(79, 195, 247, 0.2);
+}
+.btn-filter:hover {
+  box-shadow: 0 4px 24px rgba(79, 195, 247, 0.4);
+  transform: translateY(-1px);
+}
+.archive-error {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ff6b6b;
+  border: 1px solid rgba(255, 107, 107, 0.2);
+  background: rgba(255, 107, 107, 0.05);
+  border-radius: 2px;
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  margin-bottom: 0;
+}
+.archive-error.visible {
+  padding: 10px 16px;
+  max-height: 60px;
+  margin-bottom: 1rem;
+}
+.archive-error::before {
+  content: "// ";
+  opacity: 0.5;
+}
+.types-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.type-btn {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: rgba(13, 14, 26, 0.8);
+  border: 1px solid rgba(232, 107, 42, 0.15);
+  padding: 6px 14px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.type-btn:hover {
+  border-color: var(--ember);
+  color: var(--ember2);
+  background: rgba(232, 107, 42, 0.06);
+}
+.type-btn.active {
+  background: rgba(232, 107, 42, 0.12);
+  border-color: var(--ember);
+  color: var(--ember2);
+  box-shadow: 0 0 10px rgba(232, 107, 42, 0.1);
+}
+.quotes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border);
+  margin-bottom: 1.5rem;
+  min-height: 200px;
+}
+.quote-card {
+  background: var(--abyss);
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.25s;
+  animation: fadeUp 0.4s ease both;
+}
+.quote-card:hover {
+  background: var(--surface);
+}
+.quote-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--ember), var(--rune));
+  transition: width 0.3s ease;
+}
+.quote-card:hover::before {
+  width: 100%;
+}
+.quote-card-text {
+  font-family: "Cinzel", serif;
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+.quote-card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+.quote-card-author {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--soul2);
+}
+.quote-card-author::before {
+  content: "— ";
+  color: var(--ember);
+}
+.quote-card-type {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rune);
+  border: 1px solid rgba(167, 139, 250, 0.2);
+  padding: 2px 8px;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+.quotes-empty {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.quotes-empty::before {
+  content: "// ";
+  color: var(--ember);
+}
+.pagination-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  padding-bottom: 2rem;
+}
+.page-btn {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  background: rgba(13, 14, 26, 0.8);
+  border: 1px solid var(--border);
+  padding: 7px 13px;
+  border-radius: 2px;
+  cursor: pointer;
+  min-width: 36px;
+  text-align: center;
+  transition: all 0.2s;
+}
+.page-btn:hover:not(:disabled) {
+  border-color: var(--ember);
+  color: var(--ember2);
+  background: rgba(232, 107, 42, 0.06);
+}
+.page-btn.active {
+  background: rgba(232, 107, 42, 0.15);
+  border-color: var(--ember);
+  color: var(--ember2);
+}
+.page-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.page-btn.nav {
+  color: var(--soul2);
+  border-color: rgba(79, 195, 247, 0.2);
+  padding: 7px 16px;
+}
+.page-btn.nav:hover:not(:disabled) {
+  border-color: var(--soul);
+  color: var(--soul);
+  background: rgba(79, 195, 247, 0.06);
+}
+.page-ellipsis {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  padding: 0 4px;
+}
+@media (max-width: 768px) {
+  .filter-bar {
+    grid-template-columns: 1fr;
+  }
+  .quotes-grid {
+    grid-template-columns: 1fr;
   }
 }

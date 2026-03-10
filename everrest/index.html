@@ -16,33 +16,30 @@
 
     <header>
       <nav class="nav-left">
-        <a href="./htmls/signUp.html" class="nav-btn signup">Sign Up</a>
+        <a href="./htmls/signUp.html" class="nav-btn signup" id="sup">Sign Up</a>
         <span class="nav-sep">✦</span>
-        <a href="./htmls/signIn.html" class="nav-btn signin">Sign In</a>
-        <a href="./htmls/signUp.html" class="nav-btn profile">Profile</a>
+        <a href="./htmls/signIn.html" class="nav-btn signin" id="sin">Sign In</a>
+        <a href="./htmls/profile.html" class="nav-btn profile" id="prf">Profile</a>
         <span class="nav-sep">✦</span>
-        <a href="./htmls/signIn.html" class="nav-btn logout">Log In</a>
+        <button class="nav-btn logout" id="lout">Log Out</button>
       </nav>
       <a href="index.html" class="wordmark">EVER<span>REST</span></a>
       <nav class="nav-right">
-        <a href="#">The Archive</a>
+        <a href="https://everrest.educata.dev">The Archive</a>
       </nav>
     </header>
 
     <section class="hero">
       <div class="hero-inner">
         <div class="hero-text">
-          <p class="rune-tag">Everrest — Personal Archive Project</p>
-          <h1>
-            Qoutes<br /><span class="ember">around</span><br />
-            the <span class="soul">world.</span>
-          </h1>
-          <p class="hero-desc">
-            'Be yourself, everyone else is already taken.'
-          </p>
+          <p class="rune-tag" id="author">Awaiting signal...</p>
+          <div id="quote" class="ember">"Click the button — a quote shall emerge from the void."</div>
+          <p class="hero-desc" id="type">unknown</p>
           <div class="hero-actions">
-            <a href="signup.html" class="btn-primary">Begin Your Journey</a>
-            <a href="#features" class="btn-ghost">Explore the Archive</a>
+            <a href="./htmls/signUp.html" class="btn-primary"
+              >Begin Your Journey</a
+            >
+            <a class="btn-ghost" id="fakebtn">Get Random quote</a>
           </div>
         </div>
         <div class="hero-sigil">
@@ -66,50 +63,52 @@
           ><span class="stat-label">Auth System</span>
         </div>
         <div class="stat-item">
-          <span class="stat-num">100%</span
-          ><span class="stat-label">Personal Build</span>
+          <span class="stat-num"> ∞ </span
+          ><span class="stat-label"> Quotes </span>
         </div>
         <div class="stat-item">
-          <span class="stat-num">∞</span
-          ><span class="stat-label">Learning Path</span>
+          <span class="stat-num">⚔</span><span class="stat-label"> shop </span>
         </div>
       </div>
     </section>
 
     <section class="features" id="features">
       <div class="section-heading">
-        <p class="section-eyebrow">// system.modules</p>
-        <h2>The <span>Pillars</span> of the Archive</h2>
+        <p class="section-eyebrow">// quote.archive</p>
+        <h2>The <span>Codex</span> of Wisdom</h2>
       </div>
-      <div class="feature-grid">
-        <div class="feature-card">
-          <span class="feature-icon">⚔</span>
-          <p class="feature-num">01 // AUTH</p>
-          <h3>Identity & Access</h3>
-          <p>
-            Secure registration and token-based authentication. Every soul who
-            enters must first prove their worth.
-          </p>
+
+      <div class="filter-bar">
+        <div class="filter-field">
+          <label for="filterAuthor">Author</label>
+          <input
+            type="text"
+            id="filterAuthor"
+            class="filter-input"
+            placeholder="e.g. Marcus Aurelius"
+          />
         </div>
-        <div class="feature-card">
-          <span class="feature-icon">📜</span>
-          <p class="feature-num">02 // DATA</p>
-          <h3>Knowledge Codex</h3>
-          <p>
-            Structured endpoints for users, profiles, and records. The archive
-            holds all — nothing is lost to the void.
-          </p>
+        <div class="filter-field">
+          <label for="filterKeyword">Keyword</label>
+          <input
+            type="text"
+            id="filterKeyword"
+            class="filter-input"
+            placeholder="e.g. courage"
+          />
         </div>
-        <div class="feature-card">
-          <span class="feature-icon">🔮</span>
-          <p class="feature-num">03 // PORTFOLIO</p>
-          <h3>Living Proof</h3>
-          <p>
-            This project serves as artifact and evidence — a demonstration of
-            backend craft built from nothing.
-          </p>
+        <div class="filter-action">
+          <button class="btn-filter" id="searchbtn">Search Archive</button>
         </div>
       </div>
+
+      <div class="archive-error" id="archiveError"></div>
+
+      <div class="types-bar" id="lists"></div>
+
+      <div class="quotes-grid" id="quotes-div"></div>
+
+      <div class="pagination-bar" id="pagination"></div>
     </section>
 
     <footer>
@@ -118,5 +117,6 @@
         Built with intention — Powered by everrest.webscaffold.io
       </div>
     </footer>
+    <script src="./jss/j-script.js"></script>
   </body>
 </html>
