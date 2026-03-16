@@ -27,7 +27,7 @@ form.addEventListener("submit", (el) => {
       console.log(data);
       console.log(data.access_token);
       localStorage.setItem("token", data.access_token);
-      localStorage.setItem("refreshToken",data.refresh_token)
+      localStorage.setItem("refreshToken", data.refresh_token);
       window.location.href = "../index.html";
     })
     .catch((err) => {

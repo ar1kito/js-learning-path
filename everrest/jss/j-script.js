@@ -28,6 +28,8 @@ async function fetchJSON(url) {
   if (!resp.ok) throw new Error(`${resp.status}`);
   return resp.json();
 }
+let gk = fetchJSON(`${BASE_URL}/quote`)
+console.log(gk);
 
 function showError(msg) {
   archiveError.textContent = msg;
@@ -162,7 +164,7 @@ async function loadQuotes() {
       return;
     }
 
-    totalPages = data.total_pages || Math.ceil(data.total / 10) || 1;
+    totalPages = Math.ceil(data.total / 10);
     displayQuotes(data.quotes);
     displayPagination();
   } catch (err) {
