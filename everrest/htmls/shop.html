@@ -2,29 +2,57 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Shop</title>
     <link rel="stylesheet" href="../css/shop.css" />
-    <link rel="stylesheet" href="../css/common.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body>
-    <header>
-      <nav class="nav-left">
-        <a href="./shop.html" class="nav-btn signup" id="sup"> Shop </a>
-        <span class="nav-sep">✦</span>
-        <a href="../index.html" class="nav-btn signin" id="sin"> profile </a>
-      </nav>
-      <a href="index.html" class="wordmark">EVER<span>REST</span></a>
-      <nav class="nav-right">
-        <a href="https://everrest.educata.dev">The Archive</a>
-      </nav>
-    </header>
-    <main>
-      <section id="sec1">
-        <div class="div1" id="div1"></div>
-        <div class="div2" id="div2"></div>
-      </section>
-    </main>
+    <nav id="navbar">
+      <div class="left">
+        <div id="logo"><a href="./shop.html">MyShop</a></div>
+        <input type="text" id="search-input" placeholder="Search products..." />
+      </div>
+      <div class="right">
+        <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+        <a href="../index.html"> Home </a>
+      </div>
+    </nav>
+
+    <div id="layout">
+      <aside id="sidebar">
+        <div class="filter-group">
+          <h3>Category</h3>
+          <div id="category-filters" class="hide"></div>
+        </div>
+
+        <div class="filter-group">
+          <h3>Brand</h3>
+          <div id="brand-filters" class="hide"></div>
+        </div>
+
+        <div class="filter-group">
+          <h3>Price</h3>
+          <div id="sort-buttons">
+            <button class="sort-btn" id="sort-asc">Price ↑</button>
+            <button class="sort-btn" id="sort-desc">Price ↓</button>
+          </div>
+        </div>
+
+        <button id="clear-filters">✕ Remove all filters</button>
+      </aside>
+
+      <main id="main">
+        <div id="div1"></div>
+        <div id="div2"></div>
+      </main>
+    </div>
+
     <script src="../jss/shop.js"></script>
   </body>
 </html>
