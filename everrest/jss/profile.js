@@ -33,6 +33,7 @@ let verifiedText = document.getElementById("verifiedText");
 let changePassword = document.getElementById("chngPs");
 let ChangePasswordDiv = document.getElementById("PassChnDiv");
 let logout = document.getElementById("lout");
+
 fetch(`${BASE_URL}/auth`, {
   method: "GET",
   headers: {

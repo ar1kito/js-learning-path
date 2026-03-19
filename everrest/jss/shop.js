@@ -1,3 +1,4 @@
+let token = localStorage.getItem("token");
 let main = document.getElementById("main");
 let div1 = document.getElementById("div1");
 let div2 = document.getElementById("div2");
@@ -14,6 +15,7 @@ let desc = document.getElementById("sort-desc");
 let clear = document.getElementById("clear-filters");
 let currentCategory = -1;
 let fitlerGroup = document.querySelectorAll(".filter-group h3");
+let cart = document.getElementById("cart");
 fetch(
   "https://api.everrest.educata.dev/shop/products/all?page_size=12&page_index=1",
 )
@@ -27,9 +29,9 @@ fetch(
   });
 
 sortButtons.addEventListener("click", (e) => {
-  if ((e.target.id == "sort-asc")) {
+  if (e.target.id == "sort-asc") {
     ascDesc = "asc";
-  } else if ((e.target.id == "sort-desc")) {
+  } else if (e.target.id == "sort-desc") {
     ascDesc = "desc";
   }
   fetch(
@@ -134,16 +136,78 @@ search.addEventListener("input", (e) => {
 
 function display(arr) {
   div1.innerHTML = "";
-  let price = 0
+  let price = 0;
   arr.forEach((el) => {
-    if(el.price.currency == "GEL"){
-      price = 2.7 * el.price.current
-    }
-    else{
-      price = el.price.current
+    if (el.price.currency == "GEL") {
+      price = 2.7 * el.price.current;
+    } else {
+      price = el.price.current;
     }
     let div = document.createElement("div");
-    div.innerHTML = `<div class="product-card">
+    let cartControls = document.createElement("div");
+    cartControls.classList.add("Cart-veli");
+    cartControls.innerHTML = `
+  <button class="minus btn">−</button>
+  <p class="value">0</p>
+  <button class="plus btn">+</button>
+  <button class="CartBtn">Add to Cart</button>
+`;
+    cartControls.querySelector(".minus").addEventListener("click", (e) => {
+      e.stopPropagation();
+      let elText = cartControls.querySelector(".value");
+      let current = parseInt(elText.textContent);
+      if (current > 0) elText.textContent = current - 1;
+    });
+    cartControls.querySelector(".plus").addEventListener("click", (e) => {
+      e.stopPropagation();
+      let elText = cartControls.querySelector(".value");
+      if (parseInt(elText.textContent) < el.stock) {
+        elText.textContent = parseInt(elText.textContent) + 1;
+      }
+    });
+    cartControls
+      .querySelector(".CartBtn")
+      .addEventListener("click", async (e) => {
+        e.stopPropagation();
+        let quantity = parseInt(
+          cartControls.querySelector(".value").textContent,
+        );
+        if (quantity === 0) return;
+        const resp = await fetch(
+          "https://api.everrest.educata.dev/shop/cart/product",
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id: el._id, quantity }),
+          },
+        );
+        if (!resp.ok) {
+          const cartResp = await fetch(
+            "https://api.everrest.educata.dev/shop/cart",
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            },
+          );
+          const cart = await cartResp.json();
+          const existing = cart.products.find((p) => p.productId === el._id);
+          const newQuantity = existing
+            ? existing.quantity + quantity
+            : quantity;
+
+          await fetch("https://api.everrest.educata.dev/shop/cart/product", {
+            method: "PATCH",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id: el._id, quantity: newQuantity }),
+          });
+        }
+      });
+    div.innerHTML = `<div class="">
   <div class="product-image">
     <img src="${el.thumbnail}" alt="${el.title}" referrerpolicy="no-referrer">
   </div>
@@ -160,6 +224,8 @@ function display(arr) {
     div.addEventListener("click", () => {
       window.location.href = `./shop-description.html?id=${el._id}`;
     });
+    div.classList.add("product-card");
+    div.appendChild(cartControls);
     div1.appendChild(div);
   });
 }

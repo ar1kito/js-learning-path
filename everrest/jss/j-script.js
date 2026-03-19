@@ -255,11 +255,10 @@ function classRem(element, clss) {
 }
 
 let bool = isTokenExpired(token);
-console.log(bool,!bool);
-
 if (bool) {
   classAdd(prf, "hide");
   classAdd(logOut, "hide");
+  classAdd(logOut.nextElementSibling, "hide")
 } else {
   classRem(prf, "hide");
   classRem(lout, "hide");
@@ -267,4 +266,5 @@ if (bool) {
   classAdd(lout, "signin");
   classAdd(signIn, "hide");
   classAdd(signUp, "hide");
+  classAdd(signUp.nextElementSibling, "hide")
 }
